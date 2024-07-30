@@ -65,7 +65,7 @@ const AddForm = () => {
                 >
                   <option>Select Company</option>
                   <option value='Amazon'>Amazon</option>
-                  <option value='Apple'>Apples</option>
+                  <option value='Apple'>Apple</option>
                   <option value='Google'>Google</option>
                   <option value='Meta'>Meta</option>
                 </select>
