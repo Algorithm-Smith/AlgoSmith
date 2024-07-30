@@ -7,13 +7,13 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="flex">
-    <div className="w-1/4">
-      <Sidebar />
-    </div>
+      <div className="w-1/4">
+        <Sidebar />
+      </div>
 
-    <div className="flex-1 p-4">
-      {children}
-    </div>
+      <div className="flex-1 p-4">
+        {children}
+      </div>
     </div>
   )
 };
