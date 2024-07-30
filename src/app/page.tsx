@@ -3,7 +3,7 @@ import Image from 'next/image';
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Wecome to AlgoSmith</h1>
+      {/* <h1>Wecome to AlgoSmith</h1>
 
       <a
         href="/api/auth/login"
@@ -90,7 +90,7 @@ export default function Home() {
           </h2>
           <p className="m-0 max-w-[30ch] text-sm opacity-50">Explore starter templates for Next.js.</p>
         </a>
-      </div>
+      </div> */}
     </main>
   );
 }
