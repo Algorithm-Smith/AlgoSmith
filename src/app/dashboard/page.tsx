@@ -1,5 +1,7 @@
 import { getSession } from '@auth0/nextjs-auth0';
 import { redirect } from 'next/navigation';
+import Table from './components/Table';
+import AddButton from './components/AddButton';
 
 export default async function Dashboard() {
   const session = await getSession();
@@ -14,6 +16,8 @@ export default async function Dashboard() {
     <div>
       <h1>Dashboard</h1>
       <p>Welcome {session.user.given_name}!</p>
+      <Table />
+      <AddButton />
     </div>
   );
 }
