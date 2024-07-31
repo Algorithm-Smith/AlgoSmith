@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",
-    "next": "14.2.5",
+    "codemirror": "^5.65.17",
     "flowbite-react": "^0.10.1",
+    "next": "14.2.5",
     "react": "^18",
+    "react-codemirror2": "^8.0.0",
     "react-dom": "^18"
   },
   "devDependencies": {

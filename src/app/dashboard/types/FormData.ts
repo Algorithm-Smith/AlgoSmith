@@ -3,5 +3,6 @@ export interface FormData {
   interview: number;
   company: string;
   prompt: string;
-  file: File | null;
+  solution: string; 
+  notes: string;
 }
