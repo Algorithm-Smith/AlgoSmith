@@ -2,8 +2,54 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { FormData } from '../types/FormData';
 
-const AddForm = () => {
+const CodeInput = dynamic(() => import('../components/CodeInput'), { ssr: false });
+
+const AddForm: React.FC = () => {
+
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    interview: 1,
+    company: '',
+    prompt: '',
+    solution: '', // Initialize as an empty string for code input
+    notes: '',
+  });
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleCodeChange = (newCode: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      solution: newCode, // Update the solution field with the new code
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Log the solution inputted to the console
+    console.log('Solution inputted:', formData.solution);
+
+    setFormData({
+      name: '',
+      interview: 1,
+      company: '',
+      prompt: '',
+      solution: '',
+      notes: '',
+    });
+  };
+
   return (
     <div className='flex justify-center'>
       {/* <!-- Main modal --> */}
@@ -85,17 +131,15 @@ const AddForm = () => {
                 ></textarea>
               </div>
 
-              <label
-                className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
-                htmlFor='file_input'
-              >
-                Upload solution
-              </label>
-              <input
-                className='block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
-                id='file_input'
-                type='file'
-              />
+              <div className="col-span-2">
+                <label
+                  htmlFor="solution"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Solution Code
+                </label>
+                <CodeInput value={formData.solution} onChange={handleCodeChange} />
+              </div>
 
               <div className='col-span-2'>
                 <label
