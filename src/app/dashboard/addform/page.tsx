@@ -5,10 +5,11 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { FormData } from '../types/FormData';
 
-const CodeInput = dynamic(() => import('../components/CodeInput'), { ssr: false });
+const CodeInput = dynamic(() => import('../components/CodeInput'), {
+  ssr: false,
+});
 
 const AddForm: React.FC = () => {
-
   const [formData, setFormData] = useState<FormData>({
     name: '',
     interview: 1,
@@ -19,7 +20,9 @@ const AddForm: React.FC = () => {
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -37,7 +40,25 @@ const AddForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Log the solution inputted to the console
+    fetch('http://localhost:3000/dashboard/api/algos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formData,
+    })
+      .then((res) => {
+        if (res.ok) {
+          console.log('Algo added successfully');
+        } else {
+          console.log(
+            `error sending algo inptu to database: ${res.statusText}`
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(`error adding algo input to database:${err}`);
+      });
     console.log('Solution inputted:', formData.solution);
 
     setFormData({
@@ -131,14 +152,17 @@ const AddForm: React.FC = () => {
                 ></textarea>
               </div>
 
-              <div className="col-span-2">
+              <div className='col-span-2'>
                 <label
-                  htmlFor="solution"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  htmlFor='solution'
+                  className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
                 >
                   Solution Code
                 </label>
-                <CodeInput value={formData.solution} onChange={handleCodeChange} />
+                <CodeInput
+                  value={formData.solution}
+                  onChange={handleCodeChange}
+                />
               </div>
 
               <div className='col-span-2'>
@@ -160,6 +184,7 @@ const AddForm: React.FC = () => {
             <Link href={'/dashboard'}>
               <button
                 type='submit'
+                onClick={handleSubmit}
                 className='text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
               >
                 <svg
