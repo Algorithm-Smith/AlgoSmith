@@ -1,2 +1,2 @@
-# Reinforcement-Project
-Team - Pikachu
+# Algo Smith
+
